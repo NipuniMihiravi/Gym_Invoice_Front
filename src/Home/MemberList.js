@@ -23,7 +23,7 @@ function MemberTable() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this member?")) {
       try {
-        await axios.delete(`http://localhost:8081/api/members/${id}`);
+        await axios.delete(`https://gym-invoice-back.onrender.com/api/members/${id}`);
         fetchMembers();
       } catch (error) {
         console.error("Error deleting member:", error);

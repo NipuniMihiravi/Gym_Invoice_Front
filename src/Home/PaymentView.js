@@ -8,7 +8,7 @@ function PaymentViewer() {
 
   const fetchPayments = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/register/${memberLink}/payments`);
+      const res = await axios.get(`https://gym-invoice-back.onrender.com/api/register/${memberLink}/payments`);
       setPayments(res.data);
       setError(null);
     } catch (err) {

@@ -25,10 +25,10 @@ function MemberPaymentManager() {
   // Fetch member data and payments by memberId
   const handleSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:8081/api/members/by-member-id/${memberId}`);
+      const res = await axios.get(`https://gym-invoice-back.onrender.com/api/members/by-member-id/${memberId}`);
       setMemberData(res.data);
 
-      const paymentRes = await axios.get(`http://localhost:8081/api/payments/member/${memberId}`);
+      const paymentRes = await axios.get(`https://gym-invoice-back.onrender.com/api/payments/member/${memberId}`);
       const data = paymentRes.data;
       setPayments(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -53,7 +53,7 @@ function MemberPaymentManager() {
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8081/api/payments", {
+      await axios.post("https://gym-invoice-back.onrender.com/api/payments", {
         ...form,
         memberId,
         year: currentYear,
