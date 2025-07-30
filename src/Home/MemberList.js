@@ -13,7 +13,7 @@ function MemberTable() {
 
   const fetchMembers = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/members");
+      const res = await axios.get("https://gym-invoice-back.onrender.com/api/members");
       setMembers(res.data);
     } catch (error) {
       console.error("Error fetching members:", error);
@@ -42,7 +42,7 @@ function MemberTable() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:8081/api/members/${editingId}`, editForm);
+      await axios.put(`https://gym-invoice-back.onrender.com/api/members/${editingId}`, editForm);
       setEditingId(null);
       fetchMembers();
     } catch (error) {

@@ -32,7 +32,7 @@ function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8081/api/members/register", form);
+      const response = await axios.post("https://gym-invoice-back.onrender.com/api/members/register", form);
 
       // Assuming the response returns a memberId
       const memberId = response.data.memberId;
