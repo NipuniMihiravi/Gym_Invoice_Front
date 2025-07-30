@@ -1,0 +1,272 @@
+.dashboard {
+  font-family: 'Poppins', sans-serif;
+  padding: 30px;
+  color: #333;
+  height:auto;
+   border: 10px solid #008080;       /* Teal border */
+    border-radius: 10px;             /* Optional: smooth rounded corners */
+    background-color: #f9f9f9;       /* Optional: light background */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  height:100px;
+  border-bottom: 5px solid #008080;
+}
+
+.project-stats span {
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.project-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.price-box {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 18%;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.price-box.highlighted {
+  background-color: #ff8c00;
+  color: white;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+.services h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color:#008080;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card .icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+
+}
+
+.header-left {
+  flex: 1;
+}
+.header-left h2 {
+  color:#008080;
+}
+
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #cc0000;
+}
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo-circle {
+  background: linear-gradient(135deg, #004d4d, #00cccc);
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  color: #008080;
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+}
+.logo-sub-text {
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.logo-arrow {
+  color: #008080;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+/*Profile*/
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.profile-container {
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.profile-info img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+}
+
+.edit-button {
+  padding: 10px 15px;
+  background-color: #3399ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Info section */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.info-value {
+  font-weight: 400;
+  color: #222;
+}
+
+.active-status {
+  color: green;
+}
+
+/* Year title */
+.year-title {
+  margin-top: 30px;
+}
+
+/* Month grid */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.month-box {
+  background-color: #f0f4ff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.month-box:hover,
+.month-box.active {
+  background-color: #cde3ff;
+  border-color: #3399ff;
+}
+
+/* Payment table */
+.payment-title {
+  margin-top: 20px;
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.payment-table th,
+.payment-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.payment-table th {
+  background-color: #f5faff;
+}
+
+
