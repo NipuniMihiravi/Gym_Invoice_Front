@@ -17,7 +17,7 @@ function App() {
       <div style={{ padding: "10px", fontFamily: "Arial" }}>
 
         <Routes>
-          <Route path="/" element={<QRPage />} />
+          <Route path="/" element={<DashBoard />} />
           <Route path="/service/registration" element={<RegistrationForm />} />
 
           <Route path="/service/payment" element={<MemberPaymentManager />} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="/service/members-list" element={<MemberList />} />
           <Route path="/addpayment" element={<AddPayment />} />
           <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/dashboard" element={<QRPage />} />
         </Routes>
       </div>
     </Router>
