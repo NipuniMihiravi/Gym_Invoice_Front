@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./AppHome.css";
+import '../Admin/Admin.css';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function RegisterForm() {
+
+const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     gender: "",
@@ -12,6 +17,14 @@ function RegisterForm() {
     address: "",
     occupation: "",
   });
+
+
+
+    const handleLogout = () => {
+      // Optional: clear auth tokens from localStorage/sessionStorage
+      // localStorage.removeItem("token");
+      navigate('/'); // Redirect to home or login page
+    };
 
   const bgStyle = {
     backgroundImage: `url(${process.env.PUBLIC_URL + '/Images/gym.jpg'})`,
@@ -53,6 +66,34 @@ function RegisterForm() {
   };
 
   return (
+
+  <div className="dashboard">
+        <header className="header">
+          <div className="logo-wrapper">
+            <div className="logo-circle">LTF</div>
+            <span className="logo-text">Life Time Fitness</span>
+            <span className="logo-arrow">»</span>
+            <span
+              className="logo-sub-text-button"
+              onClick={() => navigate('/dashboard')}
+            >
+              Admin Panel
+            </span>
+          </div>
+
+          <div className="header-right">
+            <div className="project-stats">
+              <span>Active Members (3)</span>
+              <span>Available Activities (1)</span>
+            </div>
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        </header>
+
+
+
     <div className="form-container" style={bgStyle}>
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Life Time Fitness <br /> Gym Membership Registration</h2>
@@ -132,6 +173,7 @@ function RegisterForm() {
 
         <button type="submit">Register</button>
       </form>
+    </div>
     </div>
   );
 }

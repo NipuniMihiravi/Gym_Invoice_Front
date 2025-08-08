@@ -1,43 +1,40 @@
 import React from 'react';
-import './Admin.css';
+import '../Admin/Admin.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Dashboard = () => {
+const SystemManagement = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Optional: clear auth tokens from localStorage/sessionStorage
-    // localStorage.removeItem("token");
-    navigate('/'); // Redirect to home or login page
+    navigate('/');
   };
 
   const services = [
-    { title: "Registration", icon: "📝", color: "#f95959" },
-    { title: "Payment", icon: "💳", color: "#56ccf2" },
-    { title: "Members List", icon: "👥", color: "#2ec4b6" },
-    { title: "System", icon: "⚙️", color: "#f4a261" },
+    { title: "Membership Type Management", icon: "📋", color: "#f95959" },
+    { title: "Income-Management", icon: "📈", color: "#2ec4b6" },
+    { title: "QR-Code", icon: "🔳", color: "#f4a261" },
+
   ];
 
   return (
     <div className="dashboard">
       <header className="header">
-      <div class="logo-wrapper">
-        <div class="logo-circle">LTF</div>
-        <span class="logo-text">Life Time Fitness</span>
-        <span class="logo-arrow">»</span>
-        <span
-                      className="logo-sub-text-button"
-                      onClick={() => navigate('/dashboard')}
-                    >
-                      Admin Panel
-                    </span>
-
-      </div>
+        <div className="logo-wrapper">
+          <div className="logo-circle">LTF</div>
+          <span className="logo-text">Life Time Fitness</span>
+          <span className="logo-arrow">»</span>
+          <span
+                        className="logo-sub-text-button"
+                        onClick={() => navigate('/dashboard')}
+                      >
+                        Admin Panel
+                      </span>
+        </div>
 
         <div className="header-right">
           <div className="project-stats">
             <span>Active Members (3)</span>
-            <span>Membership Type  (3)</span>
+            <span>Available Activities (1)</span>
           </div>
           <button className="logout-button" onClick={handleLogout}>
             Logout
@@ -46,7 +43,7 @@ const Dashboard = () => {
       </header>
 
       <section className="services">
-        <h3>Select Services</h3>
+        <h3>System Management</h3>
         <div className="service-grid">
           {services.map((service, index) => (
             <Link
@@ -69,4 +66,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default SystemManagement;

@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color:black;
 }
 
 
@@ -192,21 +193,54 @@ select:focus {
 }
 
 /*MemberPaymentManager*/
-.container {
+
+.payment-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto; /* Full viewport height */
+  background-color: #f8f8f8; /* optional background */
+}
+
+.payment-container {
   padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  max-width: 1200px;
+  width: 100%;
   font-family: Arial;
+  background: white; /* optional: looks better */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* optional */
+}
+.payment-container h2 {
+  color:#008080;
+  font-size:25px;
+  text-transform: uppercase;
+  letter-spacing: 1 px;
 }
 
 .search-box input {
   padding: 8px;
   margin-right: 10px;
-  width: 200px;
-}
+  width: 300px;
+  font-size:16px;
+  border: 3px solid #008080;
+  text-transform: uppercase;
+  }
 
 .search-box button {
-  padding: 8px 12px;
+ width: 200px;
+  padding: 12px;
+  background: #008B8B;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-box button:hover {
+  background: #20B2AA;
 }
 
 .member-info-table {
@@ -218,15 +252,41 @@ select:focus {
 .member-info-table td {
   padding: 12px 16px;
   border: 1px solid #ddd;
-  font-size: 1rem;
+  font-size: 16px;
+  letter-spacing:1.5 px;
+
 }
+
+.member-info-table td strong {
+  color: #008080; /* Teal highlight for labels */
+  margin-right: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing:1.5 px;
+}
+
+
 
 .member-name-row {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 30px;
   font-weight: bold;
   background-color: #f7f7f7;
 }
+.member-name{
+  text-align: center;
+  font-size: 29px;
+  font-weight: bold;
+  background-color: #f7f7f7;
+}
+.member-details-row2{
+  text-align: left;
+  font-size: 29px;
+  font-weight: bold;
+  background-color: #f7f7f7;
+  letter-spacing:1.5 px;
+}
+
 
 
 
@@ -237,27 +297,69 @@ select:focus {
 .payment-table table {
   width: 100%;
   border-collapse: collapse;
+  font-weight: bold;
+
+  letter-spacing:1.3px;
+}
+
+.payment-table tr {
+  border: 3px solid #81D8D0;
+   font-size:15px;
+  padding: 10px;
+  text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .payment-table th, .payment-table td {
-  border: 1px solid #ccc;
+  border: 3px solid #81D8D0;
   padding: 10px;
   text-align: center;
+  font-weight: bold;
+
+.payment-table td {
+ color: white;
 }
 
+}
+.payment-table th {
+
+  color: green;              /* White text */
+  padding: 12px 15px;        /* Padding for better spacing */
+  text-align: left;          /* Align text to the left */
+  font-size: 16px;           /* Font size */
+  font-weight: 900;          /* Font weight */
+  border-bottom: 2px solid #388E3C; /* Slightly darker green border */
+}
+
+
 .pay-button {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
+  background-color: #008080;
+   width: 150px;
+    padding: 6px;
+    background: #008B8B;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: 2px solid green;
 }
 
 .done-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 6px 12px;
-  border: none;
+  background-color: #00CCCC;
+    width: 150px;
+      padding: 6px;
+      color: black;
+      font-weight: bold;
+      font-size: 14px;
+      border: 2px solid black;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing:1.5px;
+      transition: background 0.3s;
 }
 
 .paid-status {
@@ -268,6 +370,11 @@ select:focus {
 .not-paid-status {
   color: red;
 }
+.absent-status {
+  color: #FEBE10;
+  font-weight: bold;
+}
+
 
 .payment-form {
   margin-top: 15px;
@@ -284,7 +391,7 @@ select:focus {
 
 
 /*modal overlay*/
-.modal {
+.modal1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -297,16 +404,25 @@ select:focus {
   z-index: 1000;
 }
 
-.modal-content {
+.modal1-content {
   background: white;
   padding: 20px;
-  width: 80%;
+  border:5px solid black;
+  width: 60%;
   max-height: 90vh;
   overflow-y: auto;
   border-radius: 8px;
 }
 
-.modal-grid {
+.modal1-content h4 {
+  color:#01796F;
+  font-weight:700;
+  font-size:30px;
+  letter-spacing:1.2px;
+
+}
+
+.modal1-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
@@ -319,18 +435,41 @@ select:focus {
 
 .form-row label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+   margin-top: 5px;
 }
 
-.form-row input {
+.form-row input,
+ .form-row select{
   padding: 8px;
-  font-size: 14px;
+     margin-right: 10px;
+     width: 300px;
+     font-size:16px;
+     border: 3px solid #008080;
+     text-transform: uppercase;
 }
 
 .form-actions {
   margin-top: 20px;
   text-align: right;
 }
+.form-actions button {
+   width: 200px;
+    padding: 12px;
+    background: #008B8B;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-right:10px;
+}
+.form-actions button:hover {
+  background: #20B2AA;
+}
+
 
 /*Payment Model*/
 .modal-overlay {
@@ -347,22 +486,172 @@ select:focus {
 }
 
 .modal-content {
-  background: white;
+  background: #008080;
   padding: 30px;
   border-radius: 10px;
-  width: 400px;
+  width: 500px;
   max-width: 90%;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border:3px solid black;
 }
+.payment-form{
+background: white;
+border:3px solid black;
+}
+
+.payment-form h4{
+font-size:25px;
+font-weight:bold;
+
+}
+
+.payment-form input[type="number"],
+ .payment-form input[type="date"]{
+  width: 100%;
+  max-width: 300px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 2px solid #008080;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.payment-form input[type="number"]:focus,
+ .payment-form input[type="date"]:focus{
+  border-color: #00b3b3;  /* Lighter teal */
+  box-shadow: 0 0 5px rgba(0, 179, 179, 0.5); /* Soft glow */
+  outline: none; /* Remove default blue outline */
+}
+
+.duration-select {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 2px solid #008080;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-right: 20px;
+}
+.duration-select:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+}
+
+
+
+
 
 .modal-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
+  margin-bottom:25px;
 }
 
 .modal-buttons button {
-  padding: 6px 12px;
-}
+   width: 200px;
+   padding: 12px;
+   background: #008B8B;
+   color: white;
+   margin-left:10px;
+   font-weight: bold;
+   font-size: 14px;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: background 0.3s;
+ }
+
+ .modal-buttons button:hover {
+   background: #20B2AA;
+ }
+  /*Membership Type*/
+
+
+
+  .payment-container input {
+    padding: 8px;
+    margin-right: 10px;
+    width: 300px;
+    font-size:16px;
+    border: 3px solid #008080;
+    text-transform: uppercase;
+    }
+
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f0f0f0;
+  }
+
+  /*Button css*/
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+    .actions-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      margin-right: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+  .view-btn {
+    background-color: #00bcd4; /* cyan */
+  }
+
+  .view-btn:hover {
+    background-color: #0097a7;
+  }
+
+  .edit-btn {
+    background-color: #ff9800; /* orange */
+  }
+
+  .edit-btn:hover {
+    background-color: #f57c00;
+  }
+
+  .delete-btn {
+    background-color: #f44336; /* red */
+  }
+
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+
 
 

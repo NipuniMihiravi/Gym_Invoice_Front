@@ -1,11 +1,12 @@
+/* === Base Styles === */
 .dashboard {
   font-family: 'Poppins', sans-serif;
   padding: 30px;
   color: #333;
-  height:auto;
-   border: 10px solid #008080;       /* Teal border */
-    border-radius: 10px;             /* Optional: smooth rounded corners */
-    background-color: #f9f9f9;       /* Optional: light background */
+  height: auto;
+  border: 10px solid #008080;       /* Teal border */
+  border-radius: 10px;              /* Smooth rounded corners */
+  background-color: black;          /* Dark background */
 }
 
 .header {
@@ -13,19 +14,15 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  height:100px;
+  height: 100px;
   border-bottom: 5px solid #008080;
+  flex-wrap: wrap;
 }
 
 .project-stats span {
   margin-right: 20px;
   font-weight: bold;
-}
-
-.project-summary {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
+  color: white;
 }
 
 .price-box {
@@ -46,14 +43,15 @@
 
 .services h3 {
   margin-bottom: 20px;
-  font-size: 24px;
-  color:#008080;
+  font-size: 28px;
+  color: #008080;
 }
 
 .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
+  height: auto;
 }
 
 .service-card {
@@ -62,6 +60,17 @@
   padding: 20px;
   text-align: center;
   transition: transform 0.3s ease;
+  text-decoration: none;
+  margin-top: 40px;
+}
+
+.service-card-link {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.service-card h4 {
+  text-decoration: none;
 }
 
 .service-card:hover {
@@ -72,22 +81,14 @@
   font-size: 32px;
   margin-bottom: 10px;
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-
-}
 
 .header-left {
   flex: 1;
 }
-.header-left h2 {
-  color:#008080;
-}
 
+.header-left h2 {
+  color: #008080;
+}
 
 .header-right {
   display: flex;
@@ -110,11 +111,13 @@
 .logout-button:hover {
   background-color: #cc0000;
 }
+
 .logo-wrapper {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: 'Poppins', sans-serif;
+  flex-wrap: wrap;
 }
 
 .logo-circle {
@@ -136,11 +139,22 @@
   font-size: 30px;
   letter-spacing: 0.5px;
 }
-.logo-sub-text {
-  color: black;
-  font-weight: 600;
-  font-size: 20px;
-  letter-spacing: 0.5px;
+
+.logo-sub-text-button {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 3px solid #008080;
+  border-radius: 5px;
+  background-color: white;
+  color: #008080;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.logo-sub-text-button:hover {
+  background-color: #008080;
+  color: white;
 }
 
 .logo-arrow {
@@ -149,124 +163,148 @@
   font-weight: bold;
 }
 
-/*Profile*/
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #f8f9fa;
-}
-
-.profile-container {
-  padding: 30px;
-  max-width: 1000px;
-  margin: auto;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Header */
-.profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
-
-.profile-info {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.profile-info img {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-}
-
-.edit-button {
-  padding: 10px 15px;
-  background-color: #3399ff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Info section */
-.info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.info-label {
-  font-weight: 600;
-  color: #555;
-}
-
-.info-value {
-  font-weight: 400;
-  color: #222;
-}
-
-.active-status {
-  color: green;
-}
-
-/* Year title */
-.year-title {
-  margin-top: 30px;
-}
-
-/* Month grid */
-.month-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.month-box {
-  background-color: #f0f4ff;
-  border-radius: 10px;
-  text-align: center;
-  padding: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.month-box:hover,
-.month-box.active {
-  background-color: #cde3ff;
-  border-color: #3399ff;
-}
-
-/* Payment table */
-.payment-title {
-  margin-top: 20px;
+/* === Responsive Table === */
+.payment-container {
+  overflow-x: auto;
 }
 
 .payment-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  background: white;
 }
 
-.payment-table th,
-.payment-table td {
-  padding: 12px;
+.payment-table th, .payment-table td {
+  padding: 10px;
   border: 1px solid #ddd;
-  text-align: left;
+  text-align: center;
+  font-size: 14px;
 }
 
 .payment-table th {
-  background-color: #f5faff;
+  background-color: #008080;
+  color: white;
 }
 
+.action-btn {
+  padding: 6px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
+.view-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* === Mobile & Tablet Responsiveness === */
+@media (max-width: 1024px) {
+  .price-box {
+    width: 30%;
+  }
+
+  .header {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .logo-text {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .price-box {
+    width: 45%;
+  }
+
+  .header-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .project-stats span {
+    display: block;
+    margin: 5px 0;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .service-card {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard {
+    padding: 15px;
+    border-width: 5px;
+  }
+
+  .logo-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .logo-arrow {
+    font-size: 20px;
+  }
+
+  .logout-button {
+    width: 100%;
+  }
+
+  .payment-table th, .payment-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .action-btn {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-box {
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-stats {
+    width: 100%;
+  }
+
+  .logo-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
