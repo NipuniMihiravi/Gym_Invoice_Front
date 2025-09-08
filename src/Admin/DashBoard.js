@@ -42,7 +42,7 @@ const Dashboard = () => {
 
         <div className="header-right">
           <div className="project-stats">
-            <span>Active Members ({activeMembers})</span>
+
           </div>
           <button className="logout-button" onClick={handleLogout}>
             Logout
