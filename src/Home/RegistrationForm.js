@@ -93,7 +93,7 @@ const navigate = useNavigate();
 
     <div className="form-container" style={bgStyle}>
       <form className="register-form" onSubmit={handleSubmit}>
-        <h2>Life Time Fitness <br /> Gym Membership Registration</h2>
+        <h2>Pulse Fitness<br /> Gym Membership Registration</h2>
 
         <label htmlFor="name">Full Name</label>
         <input
