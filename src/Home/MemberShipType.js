@@ -149,7 +149,7 @@ function MembershipManager() {
 
 
         <div className="payment-container">
-          <h2>Membership Manager</h2>
+          <h2>Membership Management</h2>
           <div className="form">
             <input
               type="text"

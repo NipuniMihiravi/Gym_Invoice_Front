@@ -131,7 +131,7 @@ function MemberPaymentManager() {
 
       <div className="payment-wrapper">
         <div className="payment-container">
-          <h2>Member Payment Manager</h2>
+          <h2>Manage Member Payments</h2>
 
           <div className="search-box">
             <input
