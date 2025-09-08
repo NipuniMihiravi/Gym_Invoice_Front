@@ -106,8 +106,8 @@ function PaymentList() {
     <div className="dashboard">
       <header className="header">
         <div className="logo-wrapper">
-          <div className="logo-circle">LTF</div>
-          <span className="logo-text">Life Time Fitness</span>
+          <div className="logo-circle">PT</div>
+          <span className="logo-text">Pulse Fitness</span>
           <span className="logo-arrow">»</span>
           <span className="logo-sub-text-button" onClick={() => navigate("/dashboard")}>
             Admin Panel
