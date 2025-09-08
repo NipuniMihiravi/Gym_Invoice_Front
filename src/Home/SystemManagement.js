@@ -32,10 +32,7 @@ const SystemManagement = () => {
         </div>
 
         <div className="header-right">
-          <div className="project-stats">
-            <span>Active Members (3)</span>
-            <span>Available Activities (1)</span>
-          </div>
+
           <button className="logout-button" onClick={handleLogout}>
             Logout
           </button>

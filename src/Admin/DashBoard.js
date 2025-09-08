@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Admin.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [activeMembers, setActiveMembers] = useState(0);
 
   const handleLogout = () => {
-    // Optional: clear auth tokens from localStorage/sessionStorage
-    // localStorage.removeItem("token");
-    navigate('/'); // Redirect to home or login page
+    navigate('/');
   };
 
   const services = [
@@ -18,26 +17,32 @@ const Dashboard = () => {
     { title: "System", icon: "⚙️", color: "#f4a261" },
   ];
 
+  // Fetch from backend
+  useEffect(() => {
+    fetch("https://gym-invoice.onrender.com/api/members/active/count")
+      .then((res) => res.json())
+      .then((data) => setActiveMembers(data))
+      .catch((err) => console.error("Error fetching active members:", err));
+  }, []);
+
   return (
     <div className="dashboard">
       <header className="header">
-      <div class="logo-wrapper">
-        <div class="logo-circle">LTF</div>
-        <span class="logo-text">Life Time Fitness</span>
-        <span class="logo-arrow">»</span>
-        <span
-                      className="logo-sub-text-button"
-                      onClick={() => navigate('/dashboard')}
-                    >
-                      Admin Panel
-                    </span>
-
-      </div>
+        <div className="logo-wrapper">
+          <div className="logo-circle">LTF</div>
+          <span className="logo-text">Life Time Fitness</span>
+          <span className="logo-arrow">»</span>
+          <span
+            className="logo-sub-text-button"
+            onClick={() => navigate('/dashboard')}
+          >
+            Admin Panel
+          </span>
+        </div>
 
         <div className="header-right">
           <div className="project-stats">
-            <span>Active Members (3)</span>
-            <span>Membership Type  (3)</span>
+            <span>Active Members ({activeMembers})</span>
           </div>
           <button className="logout-button" onClick={handleLogout}>
             Logout
