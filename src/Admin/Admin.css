@@ -25,6 +25,145 @@
   color: white;
 }
 
+/* === Base Styles (unchanged from your code) === */
+/* ... your current styles here ... */
+
+
+/* === Responsive Styles === */
+
+/* Large tablets & small laptops (≤ 1200px) */
+@media (max-width: 1200px) {
+  .price-box {
+    width: 22%; /* fit more nicely on medium screens */
+  }
+  .services h3 {
+    font-size: 24px;
+  }
+  .logo-text {
+    font-size: 26px;
+  }
+}
+
+/* Tablets (≤ 992px) */
+@media (max-width: 992px) {
+  .dashboard {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 15px;
+    text-align: center;
+  }
+
+  .header-left h2 {
+    font-size: 24px;
+  }
+
+  .price-box {
+    width: 45%; /* 2 per row */
+    margin: 10px auto;
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .logo-text {
+    font-size: 24px;
+  }
+  .logo-arrow {
+    font-size: 28px;
+  }
+}
+
+/* Mobile landscape & small tablets (≤ 768px) */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .header-right {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .price-box {
+    width: 100%; /* 1 per row */
+  }
+
+  .services h3 {
+    font-size: 22px;
+  }
+
+  .service-card {
+    margin-top: 20px;
+    padding: 15px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+}
+
+/* Mobile portrait (≤ 480px) */
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 10px;
+    border-width: 6px;
+  }
+
+  .header-left h2 {
+    font-size: 20px;
+  }
+
+  .project-stats span {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .price-box {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr; /* stack services */
+  }
+
+  .service-card {
+    padding: 12px;
+    margin-top: 15px;
+  }
+
+  .logo-wrapper {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .logo-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .logo-sub-text-button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .logout-button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+
 .price-box {
   background: white;
   border-radius: 10px;
@@ -163,148 +302,4 @@
   font-weight: bold;
 }
 
-/* === Responsive Table === */
-.payment-container {
-  overflow-x: auto;
-}
 
-.payment-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-}
-
-.payment-table th, .payment-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-  font-size: 14px;
-}
-
-.payment-table th {
-  background-color: #008080;
-  color: white;
-}
-
-.action-btn {
-  padding: 6px 10px;
-  margin: 2px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.view-btn {
-  background-color: #007bff;
-  color: white;
-}
-
-.edit-btn {
-  background-color: #ffc107;
-  color: black;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-/* === Mobile & Tablet Responsiveness === */
-@media (max-width: 1024px) {
-  .price-box {
-    width: 30%;
-  }
-
-  .header {
-    height: auto;
-    padding: 10px 0;
-  }
-
-  .logo-text {
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  .price-box {
-    width: 45%;
-  }
-
-  .header-right {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .project-stats span {
-    display: block;
-    margin: 5px 0;
-  }
-
-  .logo-text {
-    font-size: 20px;
-  }
-
-  .service-card {
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 576px) {
-  .dashboard {
-    padding: 15px;
-    border-width: 5px;
-  }
-
-  .logo-circle {
-    width: 24px;
-    height: 24px;
-    font-size: 10px;
-  }
-
-  .logo-text {
-    font-size: 18px;
-  }
-
-  .logo-arrow {
-    font-size: 20px;
-  }
-
-  .logout-button {
-    width: 100%;
-  }
-
-  .payment-table th, .payment-table td {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .action-btn {
-    padding: 4px 6px;
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 400px) {
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .price-box {
-    width: 100%;
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .project-stats {
-    width: 100%;
-  }
-
-  .logo-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}

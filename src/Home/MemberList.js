@@ -106,6 +106,9 @@ function MemberTable() {
           </span>
         </div>
         <div className="header-right">
+         <div className="project-stats">
+
+                  </div>
 
           <button className="logout-button" onClick={handleLogout}>
             Logout
@@ -149,17 +152,19 @@ function MemberTable() {
                 <td>{m.phone}</td>
                 <td>{m.membershipType}</td>
                 <td>{m.membershipStatus}</td>
-                <td>
-                  <button onClick={() => handleView(m)} className="action-btn view-btn">
-                    <MdVisibility size={20} /> View
-                  </button>
-                  <button onClick={() => handleEditClick(m)} className="action-btn edit-btn">
-                    <MdEdit size={20} /> Edit
-                  </button>
-                  <button onClick={() => handleDelete(m.id)} className="action-btn delete-btn">
-                    <MdDelete size={20} /> Delete
-                  </button>
-                </td>
+               <td>
+                     <div className="table-action-buttons">
+                       <button onClick={() => handleView(m)} className="action-btn view-btn">
+                         <MdVisibility size={20} /> View
+                       </button>
+                       <button onClick={() => handleEditClick(m)} className="action-btn edit-btn">
+                         <MdEdit size={20} /> Edit
+                       </button>
+                       <button onClick={() => handleDelete(m.id)} className="action-btn delete-btn">
+                         <MdDelete size={20} /> Delete
+                       </button>
+                     </div>
+                   </td>
               </tr>
             ))}
           </tbody>

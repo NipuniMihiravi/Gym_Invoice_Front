@@ -140,6 +140,9 @@ function MembershipManager() {
         </div>
 
         <div className="header-right">
+         <div className="project-stats">
+
+                  </div>
 
           <button className="logout-button" onClick={handleLogout}>
             Logout
