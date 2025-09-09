@@ -206,6 +206,7 @@ function MembershipManager() {
                   <td>{Number(membership.fee).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                   <td>{membership.duration}</td>
                   <td>
+                  <div className="table-action-buttons">
                     <button onClick={() => handleView(membership)} className="action-btn view-btn">
                       <MdVisibility size={20} /> View
                     </button>
@@ -215,6 +216,7 @@ function MembershipManager() {
                     <button onClick={() => handleDelete(membership.id)} className="action-btn delete-btn">
                       <MdDelete size={20} /> Delete
                     </button>
+                    </div>
                   </td>
                 </tr>
               ))}
