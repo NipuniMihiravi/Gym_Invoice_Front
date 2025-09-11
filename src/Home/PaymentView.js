@@ -3,31 +3,34 @@ import axios from "axios";
 import "./AppHome.css";
 import "../Admin/Admin.css";
 import { useNavigate } from "react-router-dom";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend
+} from "recharts";
 
-function PaymentList() {
+function PaymentAnalytics() {
   const [payments, setPayments] = useState([]);
-  const navigate = useNavigate();
-  const [editingId, setEditingId] = useState(null);
-  const [editForm, setEditForm] = useState({
-    memberId: "",
-    year: "",
-    month: "",
-    amount: "",
-    date: "",
-    status: ""
-  });
-
-  // Search filters
   const [filters, setFilters] = useState({
+    fromDate: "",
+    toDate: "",
     memberId: "",
-    year: "",
-    month: "",
-    amount: "",
-    date: "",
     status: ""
   });
+  const navigate = useNavigate();
 
-  // Fetch all payments
+  useEffect(() => {
+    fetchPayments();
+  }, []);
+
   const fetchPayments = async () => {
     try {
       const res = await axios.get("https://gym-invoice-back.onrender.com/api/payments");
@@ -37,70 +40,53 @@ function PaymentList() {
     }
   };
 
-  useEffect(() => {
-    fetchPayments();
-  }, []);
-
-  // Handle delete
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this payment?")) {
-      try {
-        await axios.delete(`https://gym-invoice-back.onrender.com/api/payments/${id}`);
-        fetchPayments();
-      } catch (err) {
-        console.error("Failed to delete payment", err);
-      }
-    }
-  };
-
-  // Start editing
-  const startEdit = (payment) => {
-    setEditingId(payment.id);
-    setEditForm({
-      ...payment,
-      date: payment.date ? payment.date.substring(0, 10) : ""
-    });
-  };
-
-  // Handle edit form change
-  const handleChange = (e) => {
-    setEditForm({ ...editForm, [e.target.name]: e.target.value });
-  };
-
-  // Save changes
-  const handleUpdate = async () => {
-    try {
-      await axios.put(
-        `https://gym-invoice-back.onrender.com/api/payments/${editingId}`,
-        { ...editForm, date: new Date(editForm.date) }
-      );
-      setEditingId(null);
-      fetchPayments();
-    } catch (err) {
-      console.error("Failed to update payment", err);
-    }
-  };
-
-  const handleLogout = () => {
-    navigate("/");
-  };
-
-  // Handle filter change
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  // Filter payments based on all fields
+  // Filtered payments based on memberId, status and date range
   const filteredPayments = payments.filter((p) => {
-    return (
-      p.memberId.toLowerCase().includes(filters.memberId.toLowerCase()) &&
-      p.year.toString().includes(filters.year) &&
-      p.month.toLowerCase().includes(filters.month.toLowerCase()) &&
-      p.amount.toString().includes(filters.amount) &&
-      p.date.toLowerCase().includes(filters.date.toLowerCase()) &&
-      p.status.toLowerCase().includes(filters.status.toLowerCase())
-    );
+    const paymentDate = new Date(p.date);
+    const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+    const toDate = filters.toDate ? new Date(filters.toDate) : null;
+
+    if (fromDate && paymentDate < fromDate) return false;
+    if (toDate && paymentDate > toDate) return false;
+    if (filters.memberId && !p.memberId.toLowerCase().includes(filters.memberId.toLowerCase())) return false;
+    if (filters.status && !p.status.toLowerCase().includes(filters.status.toLowerCase())) return false;
+
+    return true;
   });
+
+  // Analytics calculations
+  const totalRevenue = filteredPayments.reduce((acc, p) => acc + p.amount, 0);
+
+  const paymentsCount = filteredPayments.length;
+
+  // Monthly Revenue
+  const monthlyIncome = filteredPayments.reduce((acc, p) => {
+    const monthKey = `${p.year}-${p.month}`;
+    if (!acc[monthKey]) acc[monthKey] = 0;
+    acc[monthKey] += p.amount;
+    return acc;
+  }, {});
+
+  const chartData = Object.entries(monthlyIncome).map(([month, amount]) => ({
+    month,
+    amount
+  }));
+
+  // Status Pie Data
+  const statusCounts = filteredPayments.reduce((acc, p) => {
+    if (!acc[p.status]) acc[p.status] = 0;
+    acc[p.status]++;
+    return acc;
+  }, {});
+  const pieData = Object.entries(statusCounts).map(([status, value]) => ({ name: status, value }));
+
+  const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
+
+  const handleLogout = () => navigate("/");
 
   return (
     <div className="dashboard">
@@ -114,28 +100,74 @@ function PaymentList() {
           </span>
         </div>
         <div className="header-right">
-          <div className="project-stats">
-
-          </div>
-          <button className="logout-button" onClick={handleLogout}>
-            Logout
-          </button>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       </header>
 
       <div className="payment-container">
-        <h2>Payment Records</h2>
+        <h2>Payment Analytics Dashboard</h2>
 
-        {/* Search Filters Row */}
+        {/* Filters */}
         <div className="filters">
-          <input name="memberId" placeholder="Search Member ID" value={filters.memberId} onChange={handleFilterChange} />
-          <input name="year" placeholder="Search Year" value={filters.year} onChange={handleFilterChange} />
-          <input name="month" placeholder="Search Month" value={filters.month} onChange={handleFilterChange} />
-          <input name="amount" placeholder="Search Amount" value={filters.amount} onChange={handleFilterChange} />
-          <input name="date" placeholder="Search Date" value={filters.date} onChange={handleFilterChange} />
-          <input name="status" placeholder="Search Status" value={filters.status} onChange={handleFilterChange} />
+          <input type="date" name="fromDate" value={filters.fromDate} onChange={handleFilterChange} />
+          <input type="date" name="toDate" value={filters.toDate} onChange={handleFilterChange} />
+          <input name="memberId" placeholder="Member ID" value={filters.memberId} onChange={handleFilterChange} />
+          <input name="status" placeholder="Status" value={filters.status} onChange={handleFilterChange} />
         </div>
 
+        {/* Summary Cards */}
+        <div className="analytics-cards">
+          <div className="card">
+            <h4>Total Revenue</h4>
+            <p>Rs {totalRevenue.toLocaleString()}</p>
+          </div>
+          <div className="card">
+            <h4>Total Payments</h4>
+            <p>{paymentsCount}</p>
+          </div>
+          <div className="card">
+            <h4>Average Monthly Income</h4>
+            <p>Rs { (totalRevenue / Object.keys(monthlyIncome).length || 0).toFixed(2) }</p>
+          </div>
+        </div>
+
+        {/* Line Chart */}
+        <h3>Monthly Revenue</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip formatter={(value) => `Rs ${value}`} />
+            <Line type="monotone" dataKey="amount" stroke="#008080" strokeWidth={2} />
+          </LineChart>
+        </ResponsiveContainer>
+
+        {/* Pie Chart */}
+        <h3>Payment Status Distribution</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={pieData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#008080"
+              label
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend />
+            <Tooltip formatter={(value) => `${value} payments`} />
+          </PieChart>
+        </ResponsiveContainer>
+
+        {/* Payments Table */}
+        <h3>Filtered Payments</h3>
         <table className="payment-table">
           <thead>
             <tr>
@@ -150,42 +182,20 @@ function PaymentList() {
           <tbody>
             {filteredPayments.map((p) => (
               <tr key={p.id}>
-                {editingId === p.id ? (
-                  <>
-                    <td><input name="memberId" value={editForm.memberId} onChange={handleChange} /></td>
-                    <td><input name="year" value={editForm.year} onChange={handleChange} /></td>
-                    <td><input name="month" value={editForm.month} onChange={handleChange} /></td>
-                    <td><input type="number" name="amount" value={editForm.amount} onChange={handleChange} /></td>
-                    <td><input type="date" name="date" value={editForm.date} onChange={handleChange} /></td>
-                    <td>
-                      <select name="status" value={editForm.status} onChange={handleChange}>
-                        <option value="Done">Done</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Absent">Absent</option>
-                      </select>
-                    </td>
-                    <td>
-                      <button onClick={handleUpdate}>Save</button>
-                      <button onClick={() => setEditingId(null)}>Cancel</button>
-                    </td>
-                  </>
-                ) : (
-                  <>
-                    <td>{p.memberId}</td>
-                    <td>{p.year}</td>
-                    <td>{p.month}</td>
-                    <td>{p.amount}</td>
-                    <td>{p.date}</td>
-                    <td>{p.status}</td>
-                  </>
-                )}
+                <td>{p.memberId}</td>
+                <td>{p.year}</td>
+                <td>{p.month}</td>
+                <td>{p.amount}</td>
+                <td>{p.date}</td>
+                <td>{p.status}</td>
               </tr>
             ))}
           </tbody>
         </table>
+
       </div>
     </div>
   );
 }
 
-export default PaymentList;
+export default PaymentAnalytics;

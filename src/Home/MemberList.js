@@ -16,6 +16,14 @@ function MemberTable() {
   const [viewForm, setViewForm] = useState(null);
   const navigate = useNavigate();
   const [membershipTypes, setMembershipTypes] = useState([]);
+ const [dialog, setDialog] = useState({
+   show: false,
+   title: "",
+   message: "",
+   type: "", // "success", "error", "warning", "confirm"
+   onConfirm: null, // optional callback for confirm dialogs
+ });
+
 
   useEffect(() => {
     fetchMembers();
@@ -66,30 +74,51 @@ function MemberTable() {
   };
 
   const handleView = (member) => setViewForm(member);
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this member?")) {
+
+const handleDelete = (id) => {
+  setDialog({
+    show: true,
+    type: "confirm",
+    message: "⚠️ Are you sure you want to delete this member?",
+    onConfirm: async () => {
       try {
         await axios.delete(`https://gym-invoice-back.onrender.com/api/members/${id}`);
         fetchMembers();
+        setDialog({ show: true, type: "success", message: "✅ Member deleted successfully!" });
       } catch (error) {
         console.error("Error deleting member:", error);
+        setDialog({ show: true, type: "error", message: "❌ Failed to delete member." });
       }
-    }
-  };
+    },
+  });
+};
+
+
   const handleEditClick = (member) => {
     setEditingId(member.id);
     setEditForm({ ...member });
   };
-  const handleUpdate = async () => {
-    try {
-      await axios.put(`https://gym-invoice-back.onrender.com/api/members/${editingId}`, editForm);
-      setEditingId(null);
-      fetchMembers();
-    } catch (error) {
-      console.error("Update failed:", error);
-    }
-  };
+const handleUpdate = async () => {
+  if (!editForm.membershipStatus || !editForm.membershipType || !editForm.joinedDate) {
+    setDialog({ show: true, type: "warning", message: "⚠️ Please fill Membership Status, Membership Type, and Joined Date before saving." });
+    return;
+  }
+
+  try {
+    await axios.put(`https://gym-invoice-back.onrender.com/api/members/${editingId}`, editForm);
+    setEditingId(null);
+    fetchMembers();
+    setDialog({ show: true, type: "success", message: "✅ Member updated successfully!" });
+  } catch (error) {
+    console.error("Update failed:", error);
+    setDialog({ show: true, type: "error", message: "❌ Failed to update member. Please try again." });
+  }
+};
+
   const handleLogout = () => navigate('/');
+
+
+
 
   return (
     <div className="dashboard">
@@ -232,14 +261,8 @@ function MemberTable() {
                 <label>Gender</label>
                 <input name="gender" value={editForm.gender || ""} onChange={handleEditChange} />
               </div>
-              <div className="form-row">
-                <label>Username</label>
-                <input name="username" value={editForm.username || ""} onChange={handleEditChange} />
-              </div>
-              <div className="form-row">
-                <label>Password</label>
-                <input name="password" value={editForm.password || ""} onChange={handleEditChange} />
-              </div>
+
+
               <div className="form-row">
                 <label>Address</label>
                 <input name="address" value={editForm.address || ""} onChange={handleEditChange} />
@@ -298,6 +321,37 @@ function MemberTable() {
           )}
 
      </div>
+{dialog.show && (
+  <div className="dialog-overlay">
+    <div className={`dialog-box ${dialog.type}`}>
+      {dialog.title && <h4>{dialog.title}</h4>}
+      <p>{dialog.message}</p>
+
+      <div className="dialog-buttons">
+        {dialog.type === "confirm" ? (
+          <>
+            <button
+              onClick={() => {
+                dialog.onConfirm && dialog.onConfirm();
+                setDialog({ ...dialog, show: false });
+              }}
+            >
+              Yes
+            </button>
+            <button onClick={() => setDialog({ ...dialog, show: false })}>
+              No
+            </button>
+          </>
+        ) : (
+          <button onClick={() => setDialog({ ...dialog, show: false })}>
+            OK
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
      </div>
 
 

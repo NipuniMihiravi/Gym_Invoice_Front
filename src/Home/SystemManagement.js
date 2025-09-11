@@ -10,9 +10,9 @@ const SystemManagement = () => {
   };
 
   const services = [
-    { title: "Membership Type Management", icon: "📋", color: "#f95959" },
-    { title: "Income-Management", icon: "📈", color: "#2ec4b6" },
-    { title: "QR-Code", icon: "🔳", color: "#f4a261" },
+    { title: "Membership Type Management", icon: "📋", color: "#915F6D" },
+    { title: "Income-Management", icon: "📈", color: "#C3B1E1" },
+    { title: "QR-Code", icon: "🔳", color: "#915F6D" },
 
   ];
 

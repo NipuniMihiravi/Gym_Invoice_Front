@@ -13,6 +13,13 @@ function MembershipManager() {
   const [editIndex, setEditIndex] = useState(null);
   const [viewForm, setViewForm] = useState(null);
   const navigate = useNavigate();
+  const [dialog, setDialog] = useState({
+    show: false,
+    type: "", // "success", "error", "warning", "confirm"
+    message: "",
+    onConfirm: null, // optional callback for confirm dialogs
+  });
+
 
   useEffect(() => {
     axios.get(API_URL)
@@ -59,50 +66,59 @@ function MembershipManager() {
     setForm(prev => ({ ...prev, fee: formatted }));
   };
 
-  const handleAddOrUpdate = () => {
-    if (!form.type || !form.fee || !form.duration) {
-      alert("All fields are required.");
-      return;
-    }
+ const handleAddOrUpdate = () => {
+   if (!form.type || !form.fee || !form.duration) {
+     setDialog({ show: true, type: "warning", message: "⚠️ All fields are required." });
+     return;
+   }
 
-    // Convert fee string with commas to float number
-    const cleanFee = parseFloat(form.fee.replace(/,/g, ''));
-    if (isNaN(cleanFee)) {
-      alert("Please enter a valid fee.");
-      return;
-    }
+   const cleanFee = parseFloat(form.fee.replace(/,/g, ''));
+   if (isNaN(cleanFee)) {
+     setDialog({ show: true, type: "warning", message: "⚠️ Please enter a valid fee." });
+     return;
+   }
 
-    const submitData = { ...form, fee: cleanFee };
+   const submitData = { ...form, fee: cleanFee };
 
-    if (editIndex !== null) {
-      const id = memberships[editIndex].id;
-      axios.put(`${API_URL}/${id}`, submitData)
-        .then((response) => {
-          const updated = [...memberships];
-          updated[editIndex] = response.data;
-          setMemberships(updated);
-          setEditIndex(null);
-          setForm({ type: '', fee: '', duration: '' });
-        })
-        .catch((error) => {
-          console.error("Update error:", error);
-        });
-    } else {
-      axios.post(API_URL, submitData)
-        .then((response) => {
-          setMemberships([...memberships, response.data]);
-          setForm({ type: '', fee: '', duration: '' });
-        })
-        .catch((error) => {
-          console.error("Add error:", error);
-        });
-    }
-  };
+   if (editIndex !== null) {
+     const id = memberships[editIndex].id;
+     axios.put(`${API_URL}/${id}`, submitData)
+       .then((response) => {
+         const updated = [...memberships];
+         updated[editIndex] = response.data;
+         setMemberships(updated);
+         setEditIndex(null);
+         setForm({ type: '', fee: '', duration: '' });
+         setDialog({ show: true, type: "success", message: "✅ Membership updated successfully!" });
+       })
+       .catch((error) => {
+         console.error("Update error:", error);
+         setDialog({ show: true, type: "error", message: "❌ Failed to update membership." });
+       });
+   } else {
+     axios.post(API_URL, submitData)
+       .then((response) => {
+         setMemberships([...memberships, response.data]);
+         setForm({ type: '', fee: '', duration: '' });
+         setDialog({ show: true, type: "success", message: "✅ Membership added successfully!" });
+       })
+       .catch((error) => {
+         console.error("Add error:", error);
+         setDialog({ show: true, type: "error", message: "❌ Failed to add membership." });
+       });
+   }
+ };
 
-  const handleView = (membership) => {
-    setViewForm(membership);
-    alert(`Viewing Membership:\nType: ${membership.type}\nFee: $${Number(membership.fee).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}\nDuration: ${membership.duration}`);
-  };
+
+ const handleView = (membership) => {
+   setViewForm(membership);
+   setDialog({
+     show: true,
+     type: "success",
+     message: `Viewing Membership:\nType: ${membership.type}\nFee: RS ${Number(membership.fee).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}\nDuration: ${membership.duration}`
+   });
+ };
+
 
   const handleEdit = (membership) => {
     const index = memberships.findIndex(m => m.id === membership.id);
@@ -112,17 +128,24 @@ function MembershipManager() {
     setEditIndex(index);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this membership?")) {
-      axios.delete(`${API_URL}/${id}`)
-        .then(() => {
-          setMemberships(memberships.filter(m => m.id !== id));
-        })
-        .catch((error) => {
-          console.error("Delete error:", error);
-        });
-    }
-  };
+const handleDelete = (id) => {
+  setDialog({
+    show: true,
+    type: "confirm",
+    message: "⚠️ Are you sure you want to delete this membership?",
+    onConfirm: async () => {
+      try {
+        await axios.delete(`${API_URL}/${id}`);
+        setMemberships(memberships.filter(m => m.id !== id));
+        setDialog({ show: true, type: "success", message: "✅ Membership deleted successfully!" });
+      } catch (error) {
+        console.error("Delete error:", error);
+        setDialog({ show: true, type: "error", message: "❌ Failed to delete membership." });
+      }
+    },
+  });
+};
+
 
   return (
     <div className="dashboard">
@@ -224,6 +247,33 @@ function MembershipManager() {
           </table>
            </div>
         </div>
+        {dialog.show && (
+          <div className="dialog-overlay">
+            <div className={`dialog-box ${dialog.type}`}>
+              <p>{dialog.message}</p>
+              <div className="dialog-buttons">
+                {dialog.type === "confirm" ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        dialog.onConfirm && dialog.onConfirm();
+                        setDialog({ ...dialog, show: false });
+                      }}
+                    >
+                      Yes
+                    </button>
+                    <button onClick={() => setDialog({ ...dialog, show: false })}>
+                      No
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={() => setDialog({ ...dialog, show: false })}>OK</button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
 
   );

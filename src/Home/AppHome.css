@@ -461,6 +461,16 @@ select:focus {
   text-transform: uppercase;
   word-break: break-word; /* prevent long text from overflowing */
 }
+.payment-table th {
+  border: 1px solid #81D8D0;
+  padding: 10px;
+  text-align: left; /* align all text left */
+  font-weight: 600;
+  text-transform: uppercase;
+  word-break: break-word; /* prevent long text from overflowing */
+}
+
+
 
 /* Payment form responsiveness */
 .payment-form {
@@ -1021,6 +1031,80 @@ th {
 .paid-status { color: green; font-weight: bold; }
 .not-paid-status { color: red; }
 .absent-status { color: #FEBE10; font-weight: bold; }
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.dialog-box {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.dialog-box button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  background: #008080;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dialog-box button:hover {
+  background: #006666;
+}
+.dialog-box.success { border-top: 5px solid #28a745; }
+.dialog-box.error { border-top: 5px solid #dc3545; }
+.dialog-box.warning { border-top: 5px solid #ffc107; }
+
+.dialog-buttons button {
+  padding: 8px 16px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #008080;
+  color: white;
+}
+
+.dialog-buttons button:hover {
+  background-color: #006666;
+}
+
+/* patmrnt chart and view*/
+.analytics-cards {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  background: #008080;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  flex: 1;
+  text-align: center;
+}
+.filters input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
 
 
 

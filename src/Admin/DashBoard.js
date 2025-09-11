@@ -11,10 +11,10 @@ const Dashboard = () => {
   };
 
   const services = [
-    { title: "Registration", icon: "📝", color: "#f95959" },
-    { title: "Payment", icon: "💳", color: "#56ccf2" },
-    { title: "Members List", icon: "👥", color: "#2ec4b6" },
-    { title: "System", icon: "⚙️", color: "#f4a261" },
+    { title: "Registration", icon: "📝", color: "#915F6D" },
+    { title: "Payment", icon: "💳", color: "#C3B1E1" },
+    { title: "Members List", icon: "👥", color: "#915F6D" },
+    { title: "System", icon: "⚙️", color: "#C3B1E1" },
   ];
 
   // Fetch from backend
