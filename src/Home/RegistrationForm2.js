@@ -117,12 +117,7 @@ function RegisterForm() {
           <div className="logo-circle">PT</div>
           <span className="logo-text">Pulse Fitness</span>
           <span className="logo-arrow">»</span>
-          <span
-            className="logo-sub-text-button"
-            onClick={() => navigate("/dashboard")}
-          >
-            Admin Panel
-          </span>
+
         </div>
 
 

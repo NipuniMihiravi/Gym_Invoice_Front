@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./Home/AppHome.css";
 import QRPage from "./Home/QRPage";
 import RegistrationForm from "./Home/RegistrationForm";
+import RegistrationForm from2 "./Home/RegistrationForm2";
 import MemberList from "./Home/MemberList";
 import MemberShipType from "./Home/MemberShipType";
 import SystemManagement from "./Home/SystemManagement";
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<DashBoard />} />
           <Route path="/service/registration" element={<RegistrationForm />} />
+          <Route path="/service/registration_member" element={<RegistrationForm2 />} />
             <Route path="/service/system" element={<SystemManagement/>} />
           <Route path="/service/payment" element={<MemberPaymentManager />} />
           <Route path="/service/membership-type-management" element={<MemberShipType />} />
