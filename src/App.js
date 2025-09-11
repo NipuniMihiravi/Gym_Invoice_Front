@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./Home/AppHome.css";
 import QRPage from "./Home/QRPage";
 import RegistrationForm from "./Home/RegistrationForm";
-import RegistrationForm from2 "./Home/RegistrationForm2";
+import RegistrationForm2 from "./Home/RegistrationForm2";
 import MemberList from "./Home/MemberList";
 import MemberShipType from "./Home/MemberShipType";
 import SystemManagement from "./Home/SystemManagement";
