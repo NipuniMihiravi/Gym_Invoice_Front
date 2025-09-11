@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<DashBoard />} />
           <Route path="/service/registration" element={<RegistrationForm />} />
-          <Route path="/service/registration_member" element={<RegistrationForm2 />} />
+          <Route path="/service/registration-member" element={<RegistrationForm2 />} />
             <Route path="/service/system" element={<SystemManagement/>} />
           <Route path="/service/payment" element={<MemberPaymentManager />} />
           <Route path="/service/membership-type-management" element={<MemberShipType />} />

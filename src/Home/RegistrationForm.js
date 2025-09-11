@@ -126,7 +126,7 @@ function RegisterForm() {
         </div>
 
 
-        </div>
+
       </header>
 
       <div className="form-container" style={bgStyle}>
