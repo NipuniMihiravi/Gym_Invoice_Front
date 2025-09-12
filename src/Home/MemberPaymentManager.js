@@ -3,6 +3,9 @@ import axios from "axios";
 import "./AppHome.css";
 import '../Admin/Admin.css';
 import { useNavigate } from 'react-router-dom';
+import { QrReader } from "@blackbox-vision/react-qr-reader";
+
+
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -27,6 +30,7 @@ function MemberPaymentManager() {
   });
   const [dialogMessage, setDialogMessage] = useState(""); // message to show
   const [showDialog, setShowDialog] = useState(false); // show/hide dialog
+  const [cameraActive, setCameraActive] = useState(false);
 
 
   useEffect(() => {
@@ -42,6 +46,11 @@ function MemberPaymentManager() {
       fetchMembershipTypes();
     }, []);
 
+useEffect(() => {
+  if (memberId) {
+    document.getElementById("memberIdInput")?.focus();
+  }
+}, [memberId]);
 
 const handleSearch = async () => {
   try {
@@ -71,6 +80,24 @@ const handleSearch = async () => {
     setPayments([]);
   }
 };
+
+ // QR scan callback
+ const handleScan = (data) => {
+   if (data) {
+     // Extract MemberID from QR code text
+     const memberIdFromQR = data.split("MemberID:")[1]?.split("\n")[0].trim();
+     if (memberIdFromQR) {
+       setMemberId(memberIdFromQR);  // update input field
+       handleSearch(memberIdFromQR); // fetch member details
+     }
+   }
+ };
+
+
+  const handleError = (err) => {
+    console.error(err);
+  };
+
 
 
 const joinedDate = memberData ? new Date(memberData.joinedDate) : null;
@@ -246,6 +273,31 @@ const getPaidDate = (month) => {
               />
               <button onClick={handleSearch}>Search</button>
             </div>
+
+           <div className="qr-reader-container">
+             <h4>Scan QR Code to Search</h4>
+
+             {/* Toggle Camera Button */}
+             <button
+               className="scan-toggle-button"
+               onClick={() => setCameraActive((prev) => !prev)}
+             >
+               {cameraActive ? "Stop Camera" : "Start Camera"}
+             </button>
+
+             {/* Camera Preview */}
+             {cameraActive && (
+               <QrReader
+                 onResult={(result, error) => {
+                   if (!!result) handleScan(result?.text);
+                   if (!!error) handleError(error);
+                 }}
+                 constraints={{ facingMode: "environment" }} // back camera
+                 style={{ width: "300px", marginTop: "10px" }}
+               />
+             )}
+           </div>
+
 
             {memberData && (
               <>
